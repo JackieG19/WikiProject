@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Wikipedia Search</title>
+</head>
+<body>
+	<div class='container text-center'>
+		<h1 class='title'>Wikipedia Search</h1>
+		    <div id='box'>
+		       <input id="input"/>
+		       <button onclick="submitButton()">Send</button>
+		       <div id="output"></div>
+            </div>
+	</div>
+</body>
+	<script>
+  /*global fetch*/
+
+function submitButton() {
+    var search = document.getElementById("input").value;
+    var url = "https://en.wikipedia.org/w/api.php?&origin=*&action=opensearch&search=" + search + "&limit=10";
+    
+console.log(search);
+    
+fetch(url, {
+    method: "GET"
+    
+}).then(async function(res){
+        console.log(await res.json());
+        return res;
+    }).then((res) => res.json())
+    .then((data) => {
+        document.getElmentById("output").innerHTML = data;
+    }).catch((err) => console.log(err));
+}
+	</script>
+</html>
